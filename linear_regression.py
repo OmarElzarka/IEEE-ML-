@@ -20,31 +20,4 @@ log_reg.fit(X_train, y_train)
 # استخدام النموذج للتنبؤ بقيمة التصنيف لبيانات الاختبار
 y_pred = log_reg.predict(X_test)
 
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, roc_curve, roc_auc_score
 
-# تنبؤ القيم باستخدام النموذج
-y_pred = log_reg.predict(X_test)
-
-# حساب مصفوفة الارتباط
-conf_matrix = confusion_matrix(y_test, y_pred)
-
-# عرض مصفوفة الارتباط
-print("Confusion Matrix:")
-print(conf_matrix)
-
-# مخطط ROC
-y_pred_proba = log_reg.predict_proba(X_test)[:,1]
-fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
-
-# عرض مخطط ROC
-plt.figure(figsize=(8, 6))
-plt.plot(fpr, tpr, color='blue', label='ROC curve (AUC = %0.2f)' % roc_auc_score(y_test, y_pred_proba))
-plt.plot([0, 1], [0, 1], color='red', linestyle='--')
-plt.xlim([0.0, 1.0])
-plt.ylim([0.0, 1.05])
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic (ROC)')
-plt.legend(loc="lower right")
-plt.show()
